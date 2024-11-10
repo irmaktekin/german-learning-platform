@@ -2,6 +2,7 @@ package org.languagelearning.language_app.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.http.SessionCreationPolicy;
@@ -15,6 +16,7 @@ import static org.springframework.security.config.Customizer.withDefaults;
 
 @Configuration
 @EnableWebSecurity
+@EnableMethodSecurity
 //Adding custom security config
 public class SecurityConfig {
     @Bean
@@ -27,12 +29,16 @@ public class SecurityConfig {
     }
     @Bean
     public UserDetailsService userDetailsService(){
-        UserDetails user1 = User.withUsername("user1")
+        UserDetails user1 = User.withUsername("student")
                 .password("{noop}password1")
-                .roles("USER")
+                .roles("STUDENT")
                 .build();
-        UserDetails user2 = User.withUsername("admin")
-                .password("{noop}adminpassword1")
+        UserDetails user2 = User.withUsername("teacher")
+                .password("{noop}passwordteacher")
+                .roles("TEACHER")
+                .build();
+        UserDetails user3 = User.withUsername("admin")
+                .password("{noop}adminpassword")
                 .roles("ADMIN")
                 .build();
         return new InMemoryUserDetailsManager(user1,user2);
