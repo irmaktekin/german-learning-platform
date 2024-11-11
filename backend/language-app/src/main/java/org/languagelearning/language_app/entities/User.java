@@ -1,12 +1,14 @@
-package org.languagelearning.language_app.model;
+package org.languagelearning.language_app.entities;
 
 import jakarta.persistence.*;
 
 @Entity
+@Table(name="users", schema = "public")
+
 public class User {
     @Id
     @GeneratedValue(strategy= GenerationType.IDENTITY)
-    private Long id;
+    private Integer id;
 
     @Column(nullable = false)
     private String username;
@@ -16,11 +18,11 @@ public class User {
 
 
 
-    public Long getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
