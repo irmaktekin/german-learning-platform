@@ -3,21 +3,16 @@ package org.languagelearning.language_app.config;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.authentication.AuthenticationProvider;
+import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.http.SessionCreationPolicy;
-import org.springframework.security.core.userdetails.User;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.security.provisioning.InMemoryUserDetailsManager;
-import org.springframework.security.provisioning.JdbcUserDetailsManager;
+import org.springframework.security.crypto.password.NoOpPasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
-
-import javax.sql.DataSource;
-
 import static org.springframework.security.config.Customizer.withDefaults;
 
 @Configuration
@@ -25,8 +20,9 @@ import static org.springframework.security.config.Customizer.withDefaults;
 @EnableMethodSecurity
 //Adding custom security config
 public class SecurityConfig {
+
     @Autowired
-    DataSource dataSource;
+    private  UserDetailsService userDetailsService;
     @Bean
     SecurityFilterChain defaultSecurityFilterChain(HttpSecurity http) throws Exception {
         http.authorizeHttpRequests((requests) -> requests.anyRequest().authenticated());
@@ -36,29 +32,17 @@ public class SecurityConfig {
         return http.build();
     }
     @Bean
-    public UserDetailsService userDetailsService(){
-        UserDetails user1 = User.withUsername("student")
-                .password(passwordEncoder().encode("password1"))
-                .roles("STUDENT")
-                .build();
-        UserDetails user2 = User.withUsername("teacher")
-                .password(passwordEncoder().encode("passwordteacher"))
-                .roles("TEACHER")
-                .build();
-        UserDetails user3 = User.withUsername("admin")
-                .password("{noop}adminpassword")
-                .roles("ADMIN")
-                .build();
-        JdbcUserDetailsManager userDetailsManager = new JdbcUserDetailsManager(dataSource);
-        userDetailsManager.createUser(user1);
-        userDetailsManager.createUser(user2);
-        userDetailsManager.createUser(user3);
-        return userDetailsManager;
-
-
+    public BCryptPasswordEncoder bCryptPasswordEncoder() {
+        return new BCryptPasswordEncoder(12);  // Set the desired strength
     }
+
     @Bean
-    public PasswordEncoder passwordEncoder(){
-        return new BCryptPasswordEncoder();
+    public AuthenticationProvider authenticationProvider(BCryptPasswordEncoder bCryptPasswordEncoder){
+        DaoAuthenticationProvider provider = new DaoAuthenticationProvider();
+        //provider.setPasswordEncoder(bCryptPasswordEncoder);
+        provider.setPasswordEncoder(NoOpPasswordEncoder.getInstance());
+
+        provider.setUserDetailsService(userDetailsService);
+        return provider;
     }
 }
