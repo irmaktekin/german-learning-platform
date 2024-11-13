@@ -7,6 +7,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 public class UserController {
 
@@ -23,5 +25,14 @@ public class UserController {
         System.out.println("user"+user.getUsername());
 
         return userService.register(user);
+    }
+    @GetMapping("/users")
+    public String getUsers(){
+        return "Hello";
+    }
+    @PostMapping("/login")
+    public String login(@RequestBody  User user){
+
+        return userService.verifyUser(user);
     }
 }
