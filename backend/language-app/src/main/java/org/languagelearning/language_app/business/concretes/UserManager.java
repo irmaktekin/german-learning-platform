@@ -13,7 +13,7 @@ import org.springframework.stereotype.Service;
 public class UserManager implements IUserService {
 
     private final UserRepo userRepo;
-    private BCryptPasswordEncoder bCryptPasswordEncoder = new BCryptPasswordEncoder(12);
+    private BCryptPasswordEncoder encoder= new BCryptPasswordEncoder(12);
 
     @Autowired
     public UserManager(UserRepo userRepo) {
@@ -23,7 +23,7 @@ public class UserManager implements IUserService {
 
     @Override
     public User register(User user) {
-        user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
+        user.setPassword(encoder.encode(user.getPassword()));
         return userRepo.save(user);
     }
 }
