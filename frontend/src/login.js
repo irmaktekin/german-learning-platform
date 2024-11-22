@@ -35,7 +35,7 @@ const Login = (props) => {
             localStorage.setItem('authToken', token);
 
             // Navigate to the home page or any other protected page
-            navigate('/home');
+            navigate('/Home');
           } else {
             const errorData =  response.text();
             setErrorMessage(errorData || 'Login failed. Please try again.');

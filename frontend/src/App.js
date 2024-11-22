@@ -1,8 +1,11 @@
 import { BrowserRouter, Route, Routes } from 'react-router-dom'
-import Home from './home'
+import Home from './Home'
 import Login from './login'
 import './App.css'
 import Navbar from './navigation/Navbar.js';
+import CategoriesPage from './CategoriesPage.js';
+import ContactPage from './ContactPage.js';
+
 import { useEffect, useState } from 'react'
 
 function App() {
@@ -12,17 +15,16 @@ function App() {
   return (
     <div className="App">
       <BrowserRouter>
-                    <Navbar />
-
+        <Navbar />
         <Routes>
           <Route
-            path="/"
-            element={<Home email={email} loggedIn={loggedIn} setLoggedIn={setLoggedIn} />}
-          />
+            path="/Home"
+            element={<Home email={email} loggedIn={loggedIn} setLoggedIn={setLoggedIn} />}/>
           <Route path="/login" element={<Login setLoggedIn={setLoggedIn} setEmail={setEmail} />} />
+          <Route path="/categories" element={<CategoriesPage />} />
+          <Route path="/contact" element={<ContactPage />} />
         </Routes>
       </BrowserRouter>
-
     </div>
   )
 }
