@@ -1,32 +1,40 @@
 package org.languagelearning.language_app.entities;
 
 import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.Collection;
-import java.util.Collections;
+import java.util.List;
 
-public class UserPrincipal implements UserDetails {
-    private User user;
+public class UserInfoDetails implements UserDetails {
 
-    public UserPrincipal(User user){
-        this.user = user;
+    private String username; // Changed from 'name' to 'username' for clarity
+    private String password;
+    private List<GrantedAuthority> authorities;
+
+    public UserInfoDetails(User userInfo) {
+        this.username = userInfo.getUsername(); // Assuming 'name' is used as 'username'
+        this.password = userInfo.getPassword();
+       /* this.authorities = List.of(userInfo.getRoles().split(","))
+                .stream()
+                .map(SimpleGrantedAuthority::new)
+                .collect(Collectors.toList());*/
     }
+
+
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return Collections.singleton(new SimpleGrantedAuthority("USER"));
+        return null;
     }
 
     @Override
     public String getPassword() {
-        System.out.println(user.getPassword());
-        return user.getPassword();
+        return password;
     }
 
     @Override
     public String getUsername() {
-        return user.getUsername();
+        return username;
     }
 
     @Override

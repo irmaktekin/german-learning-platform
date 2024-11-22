@@ -2,6 +2,7 @@ import { BrowserRouter, Route, Routes } from 'react-router-dom'
 import Home from './home'
 import Login from './login'
 import './App.css'
+import Navbar from './navigation/Navbar.js';
 import { useEffect, useState } from 'react'
 
 function App() {
@@ -11,6 +12,8 @@ function App() {
   return (
     <div className="App">
       <BrowserRouter>
+                    <Navbar />
+
         <Routes>
           <Route
             path="/"
@@ -19,6 +22,7 @@ function App() {
           <Route path="/login" element={<Login setLoggedIn={setLoggedIn} setEmail={setEmail} />} />
         </Routes>
       </BrowserRouter>
+
     </div>
   )
 }
