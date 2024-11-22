@@ -1,20 +1,11 @@
 import React from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
-import logo from '../assets/germanlogo.avif'; // Adjust the path to where your logo is
 
 
     const Navbar = () => {
       return (
         <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
-          /*<a className="navbar-brand" href="#">
-           <img
-                     src={logo} // Replace with your image path
-                     alt="Logo"
-                     width="40"  // Adjust the size as needed
-                     height="40"
-                     className="d-inline-block align-top"
-                   />
-          </a>*/
+
           <button
             className="navbar-toggler"
             type="button"
