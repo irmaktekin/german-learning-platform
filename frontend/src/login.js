@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 
 const Login = (props) => {
-  const [email, setEmail] = useState('')
+  const [username, setUsername] = useState('')
   const [password, setPassword] = useState('')
   const [emailError, setEmailError] = useState('')
   const [passwordError, setPasswordError] = useState('')
@@ -10,23 +10,25 @@ const Login = (props) => {
 
   const navigate = useNavigate()
 
-  const onButtonClick = () => {
+  const onButtonClick = async() => {
     // Create the login request payload
       const requestBody = {
-        email: email,
+        username: username,
         password: password,
       };
        try {
-          const response =  fetch('localhost:8080/login', {
+       console.log(password);
+          const response =  await fetch('http://localhost:8080/authenticate', {
             method: 'POST',
             headers: {
               'Content-Type': 'application/json',
             },
             body: JSON.stringify(requestBody),
           });
+          console.log(response);
 
           if (response.ok) {
-            const data =  response.json();
+            const data =  await response.json();
             // Assuming the backend returns a token
             const token = data.token;
             console.log('Login successful. Token:', token);
@@ -54,9 +56,9 @@ const Login = (props) => {
       <br />
       <div className={'inputContainer'}>
         <input
-          value={email}
+          value={username}
           placeholder="Enter your email here"
-          onChange={(ev) => setEmail(ev.target.value)}
+          onChange={(ev) => setUsername(ev.target.value)}
           className={'inputBox'}
         />
         <label className="errorLabel">{emailError}</label>
