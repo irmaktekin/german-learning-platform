@@ -16,6 +16,17 @@ public class User {
     @Column(nullable = false)
     private String password;
 
+    public String getRole() {
+        return role;
+    }
+
+    public void setRole(String role) {
+        this.role = role;
+    }
+
+    @Column(nullable = false)
+    private String role;
+
 
 
     public Integer getId() {
@@ -43,7 +54,9 @@ public class User {
     public void setUsername(String username) {
         this.username = username;
     }
-
+public User(){
+        
+}
 
 
 
