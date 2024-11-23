@@ -24,7 +24,6 @@ const Login = (props) => {
             },
             body: JSON.stringify(requestBody),
           });
-
           if (response.ok) {
             const data =  response.json();
             // Assuming the backend returns a token
