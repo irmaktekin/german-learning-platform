@@ -4,6 +4,7 @@
   align-items: center;
   justify-content: center;
   height: 100vh;
+  background:white;
 }
 
 .titleContainer {
@@ -14,6 +15,7 @@
   align-items: center;
   justify-content: center;
 }
+
 
 .resultContainer,
 .historyItem {
