@@ -18,7 +18,7 @@ import java.util.function.Function;
 @Component
 public class JwtService {
 
-    private static final String SECRET = "1DFBB9CB4FDF7F8A6DD48C1E0167414B87E02D39060699FC7F4FC4236DE1C6D8D85159B6CDFA4544FF05087837E60714BC78ABA4D9819244053506FCC2E1B541";
+    private static final String SECRET = System.getenv("JWT_SECRET");
     private static final long VALIDITY = TimeUnit.MINUTES.toMillis(30);
 
     // Generate token with given user name
@@ -34,6 +34,8 @@ public class JwtService {
                 .compact();
     }
     private SecretKey generateKey(){
+        System.out.println("JWT Secret: " + System.getenv("JWT_SECRET"));
+
         byte [] decodedKey = Base64.getDecoder().decode(SECRET);
         return Keys.hmacShaKeyFor(decodedKey);
     }
