@@ -1,0 +1,92 @@
+html, body {
+  height: 100%; /* Make sure the body and html take up the full height */
+  margin: 0;    /* Remove default margin */
+  padding: 0;   /* Remove default padding */
+  display: flex; /* Use flexbox for layout */
+  justify-content: center; /* Center horizontally */
+  align-items: center;  /* Center vertically */
+  background-color: #735DA5; /* Background color for body */
+}
+
+.mainContainer {
+  background-color: #D3C5E5;
+  width: 100%;
+  max-width: 600px; /* Optional: max-width for the container */
+  padding: 60px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100%; /* Ensure the main container stretches full height */
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.inputContainer {
+  margin-bottom: 20px;
+  width: 100%;
+}
+
+.inputBox {
+  width: 100%;
+  padding: 8px 12px; /* Reduce padding for a smaller height */
+  padding-left: 15px; /* Adjust left padding to make it less wide */
+
+  border: 1px solid #CADCFC;
+  background-color: #CADCFC;
+  color: #00246B;
+  border-radius: 4px;
+  font-size: 16px;
+  
+
+}
+
+.inputBox:focus {
+  outline: none;
+  border-color: #00246B;
+  background-color: white;
+}
+
+.errorLabel {
+  color: red;
+  font-size: 12px;
+  margin-top: 5px;
+}
+
+.loginButton {
+  width: 100%;
+  background-color: #735DA5;
+  color: white;
+  padding: 12px;
+  font-size: 16px;
+  border-radius: 4px;
+  text-transform: uppercase;
+}
+
+.loginButton:hover {
+  background-color: hsl(292, 32%, 86%);
+}
+
+.titleContainer {
+  justify-content: center;
+  display: flex;
+  margin-bottom: 20;
+}
+
+.signupContainer {
+    margin-top: 20px;
+    text-align: center;
+    font-size: 14px;
+    color: black;
+  }
+  
+  .signupLink {
+    color: #2238f6;
+    cursor: pointer;
+    text-decoration: underline;
+  }
+  
+  .signupLink:hover {
+    color: #2238f6;
+  }
+  

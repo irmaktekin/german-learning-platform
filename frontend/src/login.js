@@ -1,5 +1,8 @@
 import React, { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
+import Button from '@mui/material/Button';
+import Typography from '@mui/material/Typography';
+import './LoginPage.css'; // Replace with the actual path to your CSS file
 
 const Login = (props) => {
   const [username, setUsername] = useState('')
@@ -48,36 +51,48 @@ const Login = (props) => {
   }
 
   return (
-    <div className={'mainContainer'}>
-      <div className={'titleContainer'}>
-        <div>Login</div>
-      </div>
-      <br />
-      <div className={'inputContainer'}>
-        <input
-          value={username}
-          placeholder="Enter your email here"
-          onChange={(ev) => setUsername(ev.target.value)}
-          className={'inputBox'}
-        />
-        <label className="errorLabel">{emailError}</label>
-      </div>
-      <br />
-      <div className={'inputContainer'}>
-        <input
-          value={password}
-          placeholder="Enter your password here"
-          onChange={(ev) => setPassword(ev.target.value)}
-          className={'inputBox'}
-        />
-        <label className="errorLabel">{passwordError}</label>
-      </div>
-      <br />
-      <div className={'inputContainer'}>
-        <input className={'inputButton'} type="button" onClick={onButtonClick} value={'Log in'} />
-      </div>
+    <div className="mainContainer">
+    <div className = "titleContainer">
+      <h3>Login </h3>
     </div>
-  )
-}
+        <div className="inputContainer">
+          <input
+            type="email"
+            value={username}
+            placeholder="Enter your email here"
+            onChange={(ev) => setUsername(ev.target.value)}
+            className="inputBox"
+          />
+          <label className="errorLabel">{emailError}</label>
+        </div>
+        <div className="inputContainer">
+          <input
+            type="password"
+            value={password}
+            placeholder="Enter your password here"
+            onChange={(ev) => setPassword(ev.target.value)}
+            className="inputBox"
+          />
+          <label className="errorLabel">{passwordError}</label>
+        </div>
+        <br />
+        <div className="inputContainer">
+          <button className="loginButton" onClick={onButtonClick}>
+            Login
+          </button>
+        </div>
+        {errorMessage && <div className="errorMessage">{errorMessage}</div>}
+        <div className="signupContainer">
+    <p>
+      Not a member?{' '}
+      <span className="signupLink" onClick={() => navigate('/signup')}>
+        Sign up now
+      </span>
+    </p>
+        
+      </div>
+      </div>
+  );
+};
 
 export default Login

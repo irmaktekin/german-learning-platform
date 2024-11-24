@@ -6,6 +6,7 @@ import ContactPage from './ContactPage.js';
 import Login from './login';
 import { useState } from 'react';
 
+
 function App() {
   const [loggedIn, setLoggedIn] = useState(false);
   const [email, setEmail] = useState('');
@@ -21,6 +22,8 @@ function App() {
 
 const AppContent = ({ loggedIn, setLoggedIn, email, setEmail }) => {
 const location = useLocation(); // Track current location
+
+
 
   return (
     <>
