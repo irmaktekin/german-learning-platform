@@ -1,46 +1,60 @@
 package org.languagelearning.language_app.service;
 
+import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
-import io.jsonwebtoken.io.Decoders;
 import io.jsonwebtoken.security.Keys;
-import org.springframework.stereotype.Service;
+import org.springframework.aot.generate.FileSystemGeneratedFiles;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.stereotype.Component;
 
-import javax.crypto.KeyGenerator;
 import javax.crypto.SecretKey;
-import java.security.Key;
-import java.security.NoSuchAlgorithmException;
-import java.util.Base64;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.Map;
+import java.time.Instant;
+import java.util.*;
+import java.util.concurrent.TimeUnit;
+import java.util.function.Function;
 
-@Service
-public class JWTService {
-    private String secretKey = "";
+@Component
+public class JwtService {
 
-    public JWTService(){
-        try {
-            KeyGenerator keyGenerator = KeyGenerator.getInstance("HmacSHA256");
-            SecretKey sk= keyGenerator.generateKey();
-            secretKey = Base64.getEncoder().encodeToString(sk.getEncoded());
-        } catch (NoSuchAlgorithmException e) {
-            throw new RuntimeException(e);
-        }
-    }
-    public String generateToken(String username) {
-        Map<String,Object> claims = new HashMap<>();
+    private static final String SECRET = System.getenv("JWT_SECRET");
+    private static final long VALIDITY = TimeUnit.MINUTES.toMillis(30);
+
+    // Generate token with given user name
+    public String generateToken(UserDetails userDetails) {
+        Map<String, String> claims = new HashMap<>();
+// Add roles to the claims
+
+        claims.put("iss", "https://secure.genuinecoder.com");
         return Jwts.builder()
-                .claims()
-                .add(claims)
-                .subject(username)
-                .issuedAt(new Date(System.currentTimeMillis()))
-                .expiration(new Date(System.currentTimeMillis()+60*60*30))
-                .and()
-                .signWith(getKey())
+                .claims(claims)
+                .subject(userDetails.getUsername())
+                .issuedAt(Date.from(Instant.now()))
+                .expiration(Date.from(Instant.now().plusMillis(VALIDITY))) // Token valid for 30 minutes
+                .signWith(generateKey())
                 .compact();
     }
-    private Key getKey(){
-        byte [] keyBytes = Decoders.BASE64.decode(secretKey);
-        return Keys.hmacShaKeyFor(keyBytes);
+    private SecretKey generateKey(){
+        System.out.println("JWT Secret: " + System.getenv("JWT_SECRET"));
+
+        byte [] decodedKey = Base64.getDecoder().decode(SECRET);
+        return Keys.hmacShaKeyFor(decodedKey);
+    }
+
+
+    private Claims getClaims(String jwt) {
+        return Jwts.parser()
+                .verifyWith(generateKey())
+                .build()
+                .parseSignedClaims(jwt)
+                .getPayload();
+    }
+
+    public boolean isTokenValid(String jwt) {
+        Claims claims = getClaims(jwt);
+        return claims.getExpiration().after(Date.from(Instant.now()));
+    }
+    public String extractUsername(String jwt){
+        Claims claims = getClaims(jwt);
+        return claims.getSubject();
     }
 }
