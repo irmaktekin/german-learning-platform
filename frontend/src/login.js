@@ -82,6 +82,15 @@ const Login = (props) => {
           </button>
         </div>
         {errorMessage && <div className="errorMessage">{errorMessage}</div>}
+        <div className="signupContainer">
+    <p>
+      Not a member?{' '}
+      <span className="signupLink" onClick={() => navigate('/signup')}>
+        Sign up now
+      </span>
+    </p>
+        
+      </div>
       </div>
   );
 };

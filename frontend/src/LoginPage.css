@@ -70,5 +70,23 @@ html, body {
 .titleContainer {
   justify-content: center;
   display: flex;
-  margin-bottom: 20%;
+  margin-bottom: 20;
 }
+
+.signupContainer {
+    margin-top: 20px;
+    text-align: center;
+    font-size: 14px;
+    color: black;
+  }
+  
+  .signupLink {
+    color: #2238f6;
+    cursor: pointer;
+    text-decoration: underline;
+  }
+  
+  .signupLink:hover {
+    color: #2238f6;
+  }
+  
