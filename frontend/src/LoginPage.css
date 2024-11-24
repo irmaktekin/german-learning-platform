@@ -89,4 +89,24 @@ html, body {
   .signupLink:hover {
     color: #2238f6;
   }
+  .checkboxContainer {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start; 
+    margin-bottom: 20px;
+    font-size: 14px;
+    width: 100%; 
+    color: #00246B;
+  }
+  
+  .checkboxLabel {
+    margin-left: 8px;
+    cursor: pointer;
+  }
+  
+  input[type="checkbox"] {
+    width: 16px;
+    height: 16px;
+    cursor: pointer;
+  }
   

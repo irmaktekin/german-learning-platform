@@ -82,6 +82,16 @@ const Login = (props) => {
           </button>
         </div>
         {errorMessage && <div className="errorMessage">{errorMessage}</div>}
+        <div className="checkboxContainer">
+    <input
+      type="checkbox"
+      id="rememberMe"
+      onChange={(e) => console.log('Remember Me:', e.target.checked)} 
+    />
+    <label htmlFor="rememberMe" className="checkboxLabel">
+      Remember Me
+    </label>
+  </div>
         <div className="signupContainer">
     <p>
       Not a member?{' '}
