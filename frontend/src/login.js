@@ -1,8 +1,11 @@
 import React, { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
+import Button from '@mui/material/Button';
+import Typography from '@mui/material/Typography';
+import './LoginPage.css'; // Replace with the actual path to your CSS file
 
 const Login = (props) => {
-  const [email, setEmail] = useState('')
+  const [username, setUsername] = useState('')
   const [password, setPassword] = useState('')
   const [emailError, setEmailError] = useState('')
   const [passwordError, setPasswordError] = useState('')
@@ -10,22 +13,24 @@ const Login = (props) => {
 
   const navigate = useNavigate()
 
-  const onButtonClick = () => {
+  const onButtonClick = async() => {
     // Create the login request payload
       const requestBody = {
-        email: email,
+        username: username,
         password: password,
       };
        try {
-          const response =  fetch('localhost:8080/login', {
+       console.log(password);
+          const response =  await fetch('http://localhost:8080/authenticate', {
             method: 'POST',
             headers: {
               'Content-Type': 'application/json',
             },
             body: JSON.stringify(requestBody),
           });
+
           if (response.ok) {
-            const data =  response.json();
+            const data =  await response.json();
             // Assuming the backend returns a token
             const token = data.token;
             console.log('Login successful. Token:', token);
@@ -34,7 +39,7 @@ const Login = (props) => {
             localStorage.setItem('authToken', token);
 
             // Navigate to the home page or any other protected page
-            navigate('/home');
+            navigate('/Home');
           } else {
             const errorData =  response.text();
             setErrorMessage(errorData || 'Login failed. Please try again.');
@@ -46,36 +51,39 @@ const Login = (props) => {
   }
 
   return (
-    <div className={'mainContainer'}>
-      <div className={'titleContainer'}>
-        <div>Login</div>
-      </div>
-      <br />
-      <div className={'inputContainer'}>
-        <input
-          value={email}
-          placeholder="Enter your email here"
-          onChange={(ev) => setEmail(ev.target.value)}
-          className={'inputBox'}
-        />
-        <label className="errorLabel">{emailError}</label>
-      </div>
-      <br />
-      <div className={'inputContainer'}>
-        <input
-          value={password}
-          placeholder="Enter your password here"
-          onChange={(ev) => setPassword(ev.target.value)}
-          className={'inputBox'}
-        />
-        <label className="errorLabel">{passwordError}</label>
-      </div>
-      <br />
-      <div className={'inputContainer'}>
-        <input className={'inputButton'} type="button" onClick={onButtonClick} value={'Log in'} />
-      </div>
+    <div className="mainContainer">
+    <div className = "titleContainer">
+      <h3>Login </h3>
     </div>
-  )
-}
+        <div className="inputContainer">
+          <input
+            type="email"
+            value={username}
+            placeholder="Enter your email here"
+            onChange={(ev) => setUsername(ev.target.value)}
+            className="inputBox"
+          />
+          <label className="errorLabel">{emailError}</label>
+        </div>
+        <div className="inputContainer">
+          <input
+            type="password"
+            value={password}
+            placeholder="Enter your password here"
+            onChange={(ev) => setPassword(ev.target.value)}
+            className="inputBox"
+          />
+          <label className="errorLabel">{passwordError}</label>
+        </div>
+        <br />
+        <div className="inputContainer">
+          <button className="loginButton" onClick={onButtonClick}>
+            Login
+          </button>
+        </div>
+        {errorMessage && <div className="errorMessage">{errorMessage}</div>}
+      </div>
+  );
+};
 
 export default Login
