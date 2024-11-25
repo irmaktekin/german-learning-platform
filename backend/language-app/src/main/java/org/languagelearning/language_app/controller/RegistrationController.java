@@ -4,11 +4,13 @@ import org.languagelearning.language_app.dao.UserInfoRepository;
 import org.languagelearning.language_app.entities.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
+@CrossOrigin
 public class RegistrationController {
     @Autowired
     private UserInfoRepository repository;
