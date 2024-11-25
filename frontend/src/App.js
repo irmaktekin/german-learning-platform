@@ -3,6 +3,8 @@ import './App.css';
 import Navbar from './navigation/Navbar.js';
 import CategoriesPage from './CategoriesPage.js';
 import ContactPage from './ContactPage.js';
+import Register from './Register.js';
+
 import Login from './login';
 import { useState } from 'react';
 
@@ -28,7 +30,7 @@ const location = useLocation(); // Track current location
   return (
     <>
       {/* Only show the Navbar if the current path is NOT '/login' */}
-      {location.pathname !== '/login' && location.pathname !== '/' && <Navbar />}
+      {location.pathname !== '/login' && location.pathname !== '/register' && <Navbar />}
 
       <Routes>
         {/* Route for Login */}
@@ -37,6 +39,7 @@ const location = useLocation(); // Track current location
         {/* Routes for other pages */}
         <Route path="/categories" element={<CategoriesPage />} />
         <Route path="/contact" element={<ContactPage />} />
+        <Route path="/register" element={<Register />} />
 
         {/* Default route can go to home */}
         <Route path="/" element={<Login />} />

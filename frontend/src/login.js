@@ -1,7 +1,5 @@
 import React, { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
-import Button from '@mui/material/Button';
-import Typography from '@mui/material/Typography';
 import './LoginPage.css'; // Replace with the actual path to your CSS file
 
 const Login = (props) => {
@@ -95,7 +93,7 @@ const Login = (props) => {
         <div className="signupContainer">
     <p>
       Not a member?{' '}
-      <span className="signupLink" onClick={() => navigate('/signup')}>
+          <span className="signupLink" onClick={() => navigate('/register')}>
         Sign up now
       </span>
     </p>
