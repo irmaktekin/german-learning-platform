@@ -4,8 +4,8 @@ import Navbar from './navigation/Navbar.js';
 import CategoriesPage from './CategoriesPage.js';
 import ContactPage from './ContactPage.js';
 import Register from './Register.js';
-
-import Login from './login';
+import Login from './Login';
+import Home from './Home';
 import { useState } from 'react';
 
 
@@ -23,14 +23,12 @@ function App() {
 }
 
 const AppContent = ({ loggedIn, setLoggedIn, email, setEmail }) => {
-const location = useLocation(); // Track current location
+const location = useLocation();
 
 
 
   return (
     <>
-      {/* Only show the Navbar if the current path is NOT '/login' */}
-      {location.pathname !== '/login' && location.pathname !== '/register' && <Navbar />}
 
       <Routes>
         {/* Route for Login */}
@@ -40,6 +38,7 @@ const location = useLocation(); // Track current location
         <Route path="/categories" element={<CategoriesPage />} />
         <Route path="/contact" element={<ContactPage />} />
         <Route path="/register" element={<Register />} />
+        <Route path="/home" element = {<Home/>}/>
 
         {/* Default route can go to home */}
         <Route path="/" element={<Login />} />
